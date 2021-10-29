@@ -17,8 +17,6 @@ module.exports = {
         "port": 3001
     },
     "files": [
-      "src/**/*.js",
-      "src/**/*.scss",
       "html/**/*.html",
     ],
     "watchEvents": [

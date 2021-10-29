@@ -4,12 +4,15 @@
   "description": "## 環境",
   "main": "main.js",
   "scripts": {
-    "start": "run-p js:bundle css:build serve",
-    "css:build": "sass --watch src/scss/style.scss:html/css/style.css",
+    "start": "run-p js:bundle css:build serve watch",
+    "autoprefixer": "postcss html/css/style.css --use autoprefixer --replace",
+    "sass": "sass src/scss/style.scss:html/css/style.css",
+    "css:build": "npm run sass && npm run autoprefixer",
     "css:minify": "sass --style=compressed src/scss/style.scss html/css/style.min.css",
     "js:bundle": "watchify src/js/main.js -o html/js/bundle.js",
     "js:minify": "uglifyjs html/js/bundle.js > html/js/bundle.min.js",
-    "serve": "browser-sync start --config bs-config.js"
+    "serve": "browser-sync start --config bs-config.js",
+    "watch": "onchange -i './src/scss' -- npm run css:build"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +22,18 @@
     "sanitize.css": "^13.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.7",
     "browser-sync": "^2.27.5",
     "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "postcss": "^8.3.11",
+    "postcss-cli": "^9.0.1",
     "sass": "^1.42.1",
     "uglify-js": "^3.14.2",
     "watchify": "^4.0.0"
-  }
+  },
+  "browserslist": [
+    "last 2 versions",
+    "IE 11"
+  ]
 }
